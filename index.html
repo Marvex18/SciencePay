@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SciencePay - Earn by Reading Articles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --accent-dark: #3a7bc8;
+            --dark: #1a1a2e;
+            --darker: #12121b;
+            --light: #f8f9fa;
+            --lighter: #ffffff;
+            --gray: #e9ecef;
+            --dark-gray: #495057;
+            --success: #4cc9f0;
+            --success-dark: #3db0d6;
+            --warning: #f72585;
+            --warning-dark: #d61c6e;
+            --card-bg: #ffffff;
+            --card-bg-dark: #2a2a3a;
+            --text: #333333;
+            --text-dark: #f0f0f0;
+            --text-light: #666666;
+            --text-light-dark: #b0b0b0;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+            --border-radius: 12px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--light) 0%, var(--gray) 100%);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            transition: var(--transition);
+            padding-bottom: 80px;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .logo {
+            color: var(--accent);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        body.dark-mode .btn-outline {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        body.dark-mode .btn-outline:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Login Page */
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+        }
+
+        .auth-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+            width: 100%;
+            max-width: 500px;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .auth-card {
+            background-color: var(--card-bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .auth-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .auth-title {
+            color: var(--accent);
+        }
+
+        .auth-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .auth-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .auth-form input {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: var(--dark-gray);
+            color: var(--text-dark);
+        }
+
+        .auth-form input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        body.dark-mode .auth-form input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 86, 212, 0.3);
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-auth:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        /* Balance Card */
+        .balance-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        .balance-title {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .balance-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn-outline-white {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline-white:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+
+        /* Withdrawal Modal */
+        .withdrawal-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .withdrawal-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .withdrawal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .withdrawal-content {
+            background-color: var(--card-bg-dark);
+        }
+
+        .withdrawal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .withdrawal-close {
+            color: var(--text-light-dark);
+        }
+
+        .withdrawal-close:hover {
+            color: var(--warning);
+        }
+
+        .withdrawal-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .withdrawal-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        body.dark-mode .withdrawal-title {
+            color: var(--accent);
+        }
+
+        .withdrawal-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .withdrawal-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .withdrawal-form input, .withdrawal-form select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .withdrawal-form input, 
+        body.dark-mode .withdrawal-form select {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-color: var(--dark-gray);
+            color: var(--text-dark);
+        }
+
+        .withdrawal-form input:focus,
+        .withdrawal-form select:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        body.dark-mode .withdrawal-form input:focus,
+        body.dark-mode .withdrawal-form select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(58, 86, 212, 0.3);
+        }
+
+        .btn-withdraw {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-withdraw:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Transaction History */
+        .transactions-section {
+            margin-top: 3rem;
+        }
+
+        .transactions-section h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .transactions-section h2 {
+            color: var(--accent);
+        }
+
+        .transactions-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .transactions-table {
+            background-color: var(--card-bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .transactions-table th, 
+        .transactions-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        body.dark-mode .transactions-table th,
+        body.dark-mode .transactions-table td {
+            border-bottom-color: var(--dark-gray);
+        }
+
+        .transactions-table th {
+            background-color: var(--gray);
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        body.dark-mode .transactions-table th {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-dark);
+        }
+
+        .transactions-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .transaction-status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+
+        .status-completed {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+        }
+
+        .status-failed {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: #dc3545;
+        }
+
+        /* Articles Section */
+        .articles-section h2 {
+            color: var(--secondary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .articles-section h2 {
+            color: var(--accent);
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .article-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .article-card {
+            background-color: var(--card-bg-dark);
+            box-shadow: var(--shadow-dark);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body.dark-mode .article-card:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .article-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .article-timer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .article-content {
+            padding: 1.5rem;
+        }
+
+        .article-source {
+            display: inline-block;
+            background-color: var(--gray);
+            color: var(--text-light);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 0.8rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .article-source {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: var(--text-light-dark);
+        }
+
+        .article-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .article-excerpt {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .article-excerpt {
+            color: var(--text-light-dark);
+        }
+
+        .article-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .article-reward {
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        body.dark-mode .article-reward {
+            color: var(--success-dark);
+        }
+
+        .btn-read {
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-read:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Reading Modal */
+        .reading-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .reading-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .modal-content {
+            background-color: var(--card-bg-dark);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        body.dark-mode .modal-close {
+            color: var(--text-light-dark);
+        }
+
+        .modal-close:hover {
+            color: var(--warning);
+        }
+
+        .modal-header {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray);
+        }
+
+        body.dark-mode .modal-header {
+            border-bottom-color: var(--dark-gray);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-source {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .modal-source {
+            color: var(--text-light-dark);
+        }
+
+        .modal-timer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: var(--gray);
+            padding: 0.8rem 1rem;
+            border-radius: var(--border-radius);
+            margin: 1.5rem 0;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        body.dark-mode .modal-timer {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-timer i {
+            color: var(--primary);
+        }
+
+        body.dark-mode .modal-timer i {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            line-height: 1.8;
+        }
+
+        .modal-body p {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-footer {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--gray);
+            text-align: center;
+        }
+
+        body.dark-mode .modal-footer {
+            border-top-color: var(--dark-gray);
+        }
+
+        .modal-complete {
+            background-color: var(--success);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+            display: none;
+        }
+
+        .modal-complete:hover {
+            background-color: var(--success-dark);
+        }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 1100;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .toast.error {
+            background-color: var(--warning);
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Hidden elements */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="auth-container">
+        <div class="auth-card">
+            <h1 class="auth-title">SciencePay</h1>
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" required>
+                </div>
+                <button type="submit" class="btn-auth">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dashboard (Initially hidden) -->
+    <div id="dashboard" class="hidden">
+        <div class="container">
+            <header class="header">
+                <div class="logo">
+                    <i class="fas fa-atom"></i>
+                    <span>SciencePay</span>
+                </div>
+                <div class="nav-actions">
+                    <button id="dark-mode-toggle" class="btn btn-outline">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button id="logout-btn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </header>
+
+            <div class="dashboard">
+                <!-- Balance Card -->
+                <div class="balance-card">
+                    <h3 class="balance-title">Available Balance</h3>
+                    <div class="balance-amount">₦<span id="balance-amount">0.00</span></div>
+                    <div class="balance-actions">
+                        <button id="withdraw-btn" class="btn btn-outline-white">
+                            <i class="fas fa-money-bill-wave"></i> Withdraw
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Articles Section -->
+                <section class="articles-section">
+                    <h2>
+                        <i class="fas fa-newspaper"></i>
+                        Available Articles
+                    </h2>
+                    <div id="articles-grid" class="articles-grid">
+                        <!-- Articles will be loaded here -->
+                    </div>
+                </section>
+
+                <!-- Transaction History -->
+                <section class="transactions-section">
+                    <h2>
+                        <i class="fas fa-history"></i>
+                        Transaction History
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="transactions-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Description</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Transaction ID</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transactions-body">
+                                <!-- Transactions will be loaded here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <!-- Withdrawal Modal -->
+    <div class="withdrawal-modal">
+        <div class="withdrawal-content">
+            <button class="withdrawal-close">&times;</button>
+            <div class="withdrawal-header">
+                <h2 class="withdrawal-title">Withdraw Funds</h2>
+                <p>Enter your bank details to withdraw your earnings</p>
+            </div>
+            <form id="withdrawal-form" class="withdrawal-form">
+                <div class="form-group">
+                    <label for="withdraw-amount">Amount (₦)</label>
+                    <input type="number" id="withdraw-amount" placeholder="Enter amount to withdraw" required>
+                </div>
+                <div class="form-group">
+                    <label for="bank-name">Bank Name</label>
+                    <input type="text" id="bank-name" placeholder="Enter your bank name" required>
+                </div>
+                <div class="form-group">
+                    <label for="account-number">Account Number</label>
+                    <input type="text" id="account-number" placeholder="Enter your account number" required>
+                </div>
+                <div class="form-group">
+                    <label for="account-name">Account Name</label>
+                    <input type="text" id="account-name" placeholder="Enter your account name" required>
+                </div>
+                <button type="submit" class="btn-withdraw" id="submit-withdrawal">
+                    <span id="withdraw-text">Withdraw Funds</span>
+                    <span id="withdraw-spinner" class="spinner hidden"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reading Modal -->
+    <div class="reading-modal">
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="article-modal-title">Article Title</h2>
+                <p class="modal-source" id="article-modal-source">Source: Scientific Journal</p>
+            </div>
+            <div class="modal-timer">
+                <i class="fas fa-clock"></i>
+                <span id="reading-timer">0:30</span> remaining to earn reward
+            </div>
+            <div class="modal-body" id="article-modal-body">
+                <p>Article content will appear here...</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-complete" id="complete-reading">Complete Reading</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toast-message">Operation completed successfully</span>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginPage = document.getElementById('login-page');
+        const dashboard = document.getElementById('dashboard');
+        const loginForm = document.getElementById('login-form');
+        const logoutBtn = document.getElementById('logout-btn');
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const balanceAmount = document.getElementById('balance-amount');
+        const withdrawBtn = document.getElementById('withdraw-btn');
+        const withdrawalModal = document.querySelector('.withdrawal-modal');
+        const withdrawalClose = document.querySelector('.withdrawal-close');
+        const withdrawalForm = document.getElementById('withdrawal-form');
+        const withdrawAmount = document.getElementById('withdraw-amount');
+        const articlesGrid = document.getElementById('articles-grid');
+        const readingModal = document.querySelector('.reading-modal');
+        const readingClose = document.querySelector('.modal-close');
+        const completeReadingBtn = document.getElementById('complete-reading');
+        const readingTimer = document.getElementById('reading-timer');
+        const transactionsBody = document.getElementById('transactions-body');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toast-message');
+
+        // App State
+        let userBalance = 0;
+        let currentArticle = null;
+        let timerInterval = null;
+        let secondsLeft = 30;
+        let transactions = [];
+        let articles = [];
+
+        // Initialize the app
+        function init() {
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+
+            // Load sample data
+            loadSampleArticles();
+            loadSampleTransactions();
+
+            // Check if user is already logged in (for demo purposes)
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                loginPage.classList.add('hidden');
+                dashboard.classList.remove('hidden');
+                updateBalanceDisplay();
+                updateTransactionsDisplay();
+            }
+        }
+
+        // Event Listeners
+        loginForm.addEventListener('submit', handleLogin);
+        logoutBtn.addEventListener('click', handleLogout);
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        withdrawBtn.addEventListener('click', () => withdrawalModal.classList.add('active'));
+        withdrawalClose.addEventListener('click', () => withdrawalModal.classList.remove('active'));
+        withdrawalForm.addEventListener('submit', handleWithdrawal);
+        readingClose.addEventListener('click', () => {
+            readingModal.classList.remove('active');
+            clearInterval(timerInterval);
+        });
+        completeReadingBtn.addEventListener('click', completeReading);
+
+        // Functions
+        function handleLogin(e) {
+            e.preventDefault();
+            
+            // For demo purposes, accept any credentials
+            localStorage.setItem('isLoggedIn', 'true');
+            
+            // Hide login, show dashboard
+            loginPage.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            
+            // Update UI
+            updateBalanceDisplay();
+            updateTransactionsDisplay();
+            
+            // Show welcome toast
+            showToast('Login successful! Welcome back.');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            loginPage.classList.remove('hidden');
+            dashboard.classList.add('hidden');
+            showToast('Logged out successfully.');
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                localStorage.setItem('darkMode', 'enabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                localStorage.setItem('darkMode', 'disabled');
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        function updateBalanceDisplay() {
+            balanceAmount.textContent = userBalance.toFixed(2);
+        }
+
+        function handleWithdrawal(e) {
+            e.preventDefault();
+            
+            const amount = parseFloat(withdrawAmount.value);
+            const bankName = document.getElementById('bank-name').value;
+            const accountNumber = document.getElementById('account-number').value;
+            const accountName = document.getElementById('account-name').value;
+            
+            // Validate amount
+            if (amount <= 0) {
+                showToast('Please enter a valid amount.', true);
+                return;
+            }
+            
+            if (amount > userBalance) {
+                showToast('Insufficient balance.', true);
+                return;
+            }
+            
+            // Validate bank details
+            if (!bankName || !accountNumber || !accountName) {
+                showToast('Please fill all bank details.', true);
+                return;
+            }
+            
+            // Simulate processing
+            const withdrawText = document.getElementById('withdraw-text');
+            const withdrawSpinner = document.getElementById('withdraw-spinner');
+            
+            withdrawText.textContent = 'Processing...';
+            withdrawSpinner.classList.remove('hidden');
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Add transaction
+                const transactionId = 'TX' + Date.now().toString().slice(-8);
+                const newTransaction = {
+                    id: transactionId,
+                    date: new Date().toLocaleString(),
+                    description: 'Withdrawal to ' + bankName,
+                    amount: -amount,
+                    status: 'pending',
+                    type: 'withdrawal'
+                };
+                
+                transactions.unshift(newTransaction);
+                updateTransactionsDisplay();
+                
+                // Close modal and reset form
+                withdrawalModal.classList.remove('active');
+                withdrawalForm.reset();
+                
+                withdrawText.textContent = 'Withdraw Funds';
+                withdrawSpinner.classList.add('hidden');
+                
+                showToast('Withdrawal request submitted. Processing...');
+                
+                // Simulate transaction completion after 1 minute
+                setTimeout(() => {
+                    const transactionIndex = transactions.findIndex(t => t.id === transactionId);
+                    if (transactionIndex !== -1) {
+                        transactions[transactionIndex].status = 'completed';
+                        updateTransactionsDisplay();
+                        showToast('Withdrawal completed successfully!');
+                    }
+                }, 60000);
+            }, 2000);
+        }
+
+        function loadSampleArticles() {
+            // In a real app, this would come from an API
+            articles = [
+                {
+                    id: 1,
+                    title: 'The Future of Quantum Computing',
+                    source: 'Science Journal',
+                    excerpt: 'Exploring the potential of quantum computers to revolutionize industries from medicine to cryptography.',
+                    image: 'https://source.unsplash.com/random/600x400/?quantum',
+                    reward: 50,
+                    content: '<p>Quantum computing represents a fundamental shift from traditional computing by leveraging the principles of quantum mechanics. While classical computers use bits (0s and 1s), quantum computers use quantum bits or qubits, which can exist in multiple states simultaneously through superposition.</p><p>This article explores the current state of quantum computing, the challenges researchers face in maintaining quantum coherence, and the potential applications that could transform fields like drug discovery, materials science, and optimization problems.</p><p>Major tech companies like IBM, Google, and startups are racing to achieve quantum supremacy - the point where a quantum computer can solve problems that classical computers practically cannot. While we\'re still in the early stages, the progress made in the last decade suggests we may see practical quantum computers within our lifetimes.</p>'
+                },
+                {
+                    id: 2,
+                    title: 'CRISPR Gene Editing Breakthrough',
+                    source: 'Nature Biology',
+                    excerpt: 'New advancements in CRISPR technology allow for more precise genetic modifications with fewer off-target effects.',
+                    image: 'https://source.unsplash.com/random/600x400/?dna',
+                    reward: 45,
+                    content: '<p>CRISPR-Cas9 has revolutionized genetic engineering since its discovery, but the technology has faced challenges with off-target effects where unintended parts of the genome get edited. This article discusses a new variant called CRISPR-Cas12a that shows significantly improved precision.</p><p>The researchers demonstrated that Cas12a makes fewer off-target cuts while maintaining high efficiency at the intended target sites. This advancement could make gene therapies safer and more reliable for treating genetic disorders.</p><p>The article also explores ethical considerations as the technology becomes more precise and accessible. While the potential to cure genetic diseases is enormous, the same technology raises questions about designer babies and genetic enhancement.</p>'
+                },
+                {
+                    id: 3,
+                    title: 'Renewable Energy Storage Solutions',
+                    source: 'Energy Today',
+                    excerpt: 'Innovative battery technologies that could solve the intermittency problem of solar and wind power.',
+                    image: 'https://source.unsplash.com/random/600x400/?battery',
+                    reward: 40,
+                    content: '<p>As the world transitions to renewable energy, one of the biggest challenges is storing energy when the sun isn\'t shining and the wind isn\'t blowing. This article examines three promising battery technologies that could provide grid-scale storage at lower costs than current lithium-ion batteries.</p><p>Flow batteries, which store energy in liquid electrolytes, show particular promise for their scalability and long cycle life. Another approach uses gravity to store energy by lifting heavy weights when excess power is available and generating electricity when they\'re lowered.</p><p>The article also discusses how these storage solutions could make 100% renewable grids economically viable within the next decade, potentially transforming our energy infrastructure and significantly reducing carbon emissions.</p>'
+                },
+                {
+                    id: 4,
+                    title: 'Neuralink Brain-Computer Interface',
+                    source: 'Tech Frontiers',
+                    excerpt: 'How Elon Musk\'s Neuralink is advancing direct brain-to-computer communication technology.',
+                    image: 'https://source.unsplash.com/random/600x400/?brain',
+                    reward: 55,
+                    content: '<p>Neuralink, the neurotechnology company founded by Elon Musk, has made significant progress in developing brain-computer interfaces (BCIs) that could help treat neurological conditions and eventually merge human cognition with artificial intelligence.</p><p>This article details their latest device, which uses ultra-thin threads implanted in the brain to detect neural activity with much higher resolution than previous technologies. The system has been successfully tested in animals and is moving toward human trials.</p><p>Potential applications include restoring mobility to paralyzed patients, treating Parkinson\'s disease, and even creating a form of "telepathy" where thoughts could be transmitted between individuals. The article also explores the ethical implications of such technology and the challenges of making it safe and reliable.</p>'
+                }
+            ];
+            
+            updateArticlesDisplay();
+        }
+
+        function updateArticlesDisplay() {
+            articlesGrid.innerHTML = '';
+            
+            articles.forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.className = 'article-card';
+                articleCard.innerHTML = `
+                    <div class="article-image" style="background-image: url('${article.image}')">
+                        <div class="article-timer">${article.reward}₦</div>
+                    </div>
+                    <div class="article-content">
+                        <span class="article-source">${article.source}</span>
+                        <h3 class="article-title">${article.title}</h3>
+                        <p class="article-excerpt">${article.excerpt}</p>
+                        <div class="article-actions">
+                            <span class="article-reward">+${article.reward}₦</span>
+                            <button class="btn-read" data-id="${article.id}">Read Now</button>
+                        </div>
+                    </div>
+                `;
+                
+                articlesGrid.appendChild(articleCard);
+            });
+            
+            // Add event listeners to read buttons
+            document.querySelectorAll('.btn-read').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const articleId = parseInt(e.target.getAttribute('data-id'));
+                    startReading(articleId);
+                });
+            });
+        }
+
+        function startReading(articleId) {
+            currentArticle = articles.find(a => a.id === articleId);
+            
+            if (!currentArticle) return;
+            
+            // Set modal content
+            document.getElementById('article-modal-title').textContent = currentArticle.title;
+            document.getElementById('article-modal-source').textContent = `Source: ${currentArticle.source}`;
+            document.getElementById('article-modal-body').innerHTML = currentArticle.content;
+            
+            // Reset timer
+            secondsLeft = 30;
+            readingTimer.textContent = '0:30';
+            document.getElementById('complete-reading').style.display = 'none';
+            
+            // Start timer
+            timerInterval = setInterval(() => {
+                secondsLeft--;
+                
+                const minutes = Math.floor(secondsLeft / 60);
+                const seconds = secondsLeft % 60;
+                readingTimer.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (secondsLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('complete-reading').style.display = 'inline-block';
+                }
+            }, 1000);
+            
+            // Show modal
+            readingModal.classList.add('active');
+        }
+
+        function completeReading() {
+            if (!currentArticle) return;
+            
+            // Add reward to balance
+            userBalance += currentArticle.reward;
+            updateBalanceDisplay();
+            
+            // Add transaction
+            const transactionId = 'TX' + Date.now().toString().slice(-8);
+            const newTransaction = {
+                id: transactionId,
+                date: new Date().toLocaleString(),
+                description: `Article: ${currentArticle.title}`,
+                amount: currentArticle.reward,
+                status: 'completed',
+                type: 'earning'
+            };
+            
+            transactions.unshift(newTransaction);
+            updateTransactionsDisplay();
+            
+            // Close modal
+            readingModal.classList.remove('active');
+            clearInterval(timerInterval);
+            
+            // Show success message
+            showToast(`You earned ${currentArticle.reward}₦ for reading this article!`);
+            
+            currentArticle = null;
+        }
+
+        function loadSampleTransactions() {
+            // In a real app, this would come from an API
+            transactions = [
+                {
+                    id: 'TX98765432',
+                    date: new Date(Date.now() - 86400000).toLocaleString(),
+                    description: 'Article: The Future of Quantum Computing',
+                    amount: 50,
+                    status: 'completed',
+                    type: 'earning'
+                },
+                {
+                    id: 'TX87654321',
+                    date: new Date(Date.now() - 172800000).toLocaleString(),
+                    description: 'Withdrawal to Zenith Bank',
+                    amount: -2000,
+                    status: 'completed',
+                    type: 'withdrawal'
+                },
+                {
+                    id: 'TX76543210',
+                    date: new Date(Date.now() - 259200000).toLocaleString(),
+                    description: 'Article: CRISPR Gene Editing Breakthrough',
+                    amount: 45,
+                    status: 'completed',
+                    type: 'earning'
+                }
+            ];
+        }
+
+        function updateTransactionsDisplay() {
+            transactionsBody.innerHTML = '';
+            
+            transactions.forEach(transaction => {
+                const row = document.createElement('tr');
+                
+                // Format amount with currency symbol
+                const amountFormatted = transaction.amount > 0 
+                    ? `+${transaction.amount.toFixed(2)}₦` 
+                    : `${transaction.amount.toFixed(2)}₦`;
+                
+                // Status badge
+                let statusBadge;
+                if (transaction.status === 'completed') {
+                    statusBadge = '<span class="transaction-status status-completed">Completed</span>';
+                } else if (transaction.status === 'pending') {
+                    statusBadge = '<span class="transaction-status status-pending">Pending</span>';
+                } else {
+                    statusBadge = '<span class="transaction-status status-failed">Failed</span>';
+                }
+                
+                row.innerHTML = `
+                    <td>${transaction.date}</td>
+                    <td>${transaction.description}</td>
+                    <td>${amountFormatted}</td>
+                    <td>${statusBadge}</td>
+                    <td>${transaction.id}</td>
+                `;
+                
+                transactionsBody.appendChild(row);
+            });
+        }
+
+        function showToast(message, isError = false) {
+            toastMessage.textContent = message;
+            
+            if (isError) {
+                toast.classList.add('error');
+            } else {
+                toast.classList.remove('error');
+            }
+            
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize the app
+        init();
+    </script>
+</body>
+</html>
